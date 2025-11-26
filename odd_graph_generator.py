@@ -48,7 +48,7 @@ class OddGraph:
         self.edge_list = get_edge_list(self.vertex_set)
 
 
-odd_graph_5 = OddGraph(3)
-example_vis_graph = GV()
-example_vis_graph.set_edge_list(odd_graph_5.edge_list)
-example_vis_graph.visualize()
+# odd_graph_5 = OddGraph(3)
+# example_vis_graph = GV()
+# example_vis_graph.set_edge_list(odd_graph_5.edge_list)
+# example_vis_graph.visualize()
