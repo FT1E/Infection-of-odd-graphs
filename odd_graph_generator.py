@@ -37,6 +37,12 @@ def get_edge_list(vertex_list):
 
     return edge_list
 
+def get_vertex_number(subset_list):
+    vertex_number = 0
+    for number in subset_list:
+        vertex_number += (1 << (number - 1))
+    return vertex_number
+
 class OddGraph:
     def __init__(self, k):
         self.k = k
@@ -48,6 +54,9 @@ class OddGraph:
         self.edge_list = get_edge_list(self.vertex_set)
 
 
+# vertex_label = get_vertex_number([2, 3, 4]);
+# print("Number for subset [2, 3, 4] is " + str(vertex_label))
+# print("Binary representation: " + format(vertex_label, "07b"))
 # odd_graph_5 = OddGraph(3)
 # example_vis_graph = GV()
 # example_vis_graph.set_edge_list(odd_graph_5.edge_list)
