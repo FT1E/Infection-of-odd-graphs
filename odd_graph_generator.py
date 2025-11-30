@@ -43,6 +43,14 @@ def get_vertex_number(subset_list):
         vertex_number += (1 << (number - 1))
     return vertex_number
 
+def get_all_subsets_containing_x(x, vertex_list):
+    bit = (1 << (x-1))
+    subset_list = []
+    for vertex in vertex_list:
+        if vertex & bit != 0:
+            subset_list.append(vertex)
+    return subset_list
+
 class OddGraph:
     def __init__(self, k):
         self.k = k
@@ -57,7 +65,18 @@ class OddGraph:
 # vertex_label = get_vertex_number([2, 3, 4]);
 # print("Number for subset [2, 3, 4] is " + str(vertex_label))
 # print("Binary representation: " + format(vertex_label, "07b"))
-# odd_graph_5 = OddGraph(3)
+
+
+
+# odd_graph = OddGraph(4)
+# subsets_containing_2 = get_all_subsets_containing_x(2, odd_graph.vertex_set)
+# print("All subsets in odd graph 4 containing element 2: " + str(subsets_containing_2))
+# print("Binary representation:")
+# for subset in subsets_containing_2:
+#     print(format(subset, '07b'))
+
+
+
 # example_vis_graph = GV()
 # example_vis_graph.set_edge_list(odd_graph_5.edge_list)
 # example_vis_graph.visualize()

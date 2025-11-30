@@ -1,3 +1,4 @@
+import random
 
 import odd_graph_generator as og
 
@@ -14,6 +15,8 @@ class InfectedGraph:
     def set_infected_vertex(self, vertex):
         self.infected_vertices[vertex] = True
 
+
+    # TODO - Improve this algorithm a bit
     def simulate_infection(self):
 
 
@@ -46,12 +49,30 @@ class InfectedGraph:
         return True
 
 
-odd_graph = og.OddGraph(3)
-i_graph = InfectedGraph(odd_graph.vertex_set, odd_graph.edge_list)
-i_graph.set_infected_vertex(3)
-i_graph.set_infected_vertex(17)
-i_graph.set_infected_vertex(9)
-i_graph.set_infected_vertex(5)
-i_graph.simulate_infection()
+print("Infecting odd graph 10 by setting all vertices/subsets which contain 1 to be infected:")
+odd_graph = og.OddGraph(5)
 
-print(i_graph.is_graph_infected())
+subsets_containing_1 = og.get_all_subsets_containing_x(1, odd_graph.vertex_set)
+minimum = len(subsets_containing_1)
+vertex_subset_winner = []
+
+for gamble in range(100):
+    random.shuffle(subsets_containing_1)
+    for i in range(len(subsets_containing_1)):
+        print("\tSimulating infection with " + str(len(subsets_containing_1) - i) + " initial infected vertices")
+
+        i_graph = InfectedGraph(odd_graph.vertex_set, odd_graph.edge_list)
+        current_infection_count = len(subsets_containing_1) - i
+        for j in range(current_infection_count):
+            i_graph.set_infected_vertex(subsets_containing_1[j])
+
+        i_graph.simulate_infection()
+        result = i_graph.is_graph_infected()
+        print("\tResult:" + str(result))
+        if not result:
+            if current_infection_count + 1 < minimum:
+                minimum = current_infection_count + 1
+                vertex_subset_winner = subsets_containing_1[:minimum]
+            break
+    print("Minimum of " + str(gamble+1) + " gambles so far: " + str(minimum))
+    print("Minimum vertex subset winner: " + str(vertex_subset_winner))
