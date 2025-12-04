@@ -6,27 +6,34 @@ from graph_visualizor import GraphVisualization as GV
 def get_odd_graph_k_vertices(k):
     set_size = 2*k - 1
     subset_size = k - 1
-    one_bit_1 = []
+    # one_bit_1 == one_elt_subsets  # past variable name
+    one_elt_subsets = []
     for i in range(set_size):
-        one_bit_1.append(1 << i)
-    # k_bits_1 now holds all numbers with 1 bit set 1
-    k_bits_1 = one_bit_1
-    k_plus_1_bits_1 = []
+        one_elt_subsets.append(1 << i)
+
+    # k_bits_1 == k_elt_subsets # past variable name
+    k_elt_subsets = one_elt_subsets
+
+    # k_plus_1_bits_1 == k_plus_1_elt_subsets
+    k_plus_1_elt_subsets = []
 
     for m in range(subset_size - 1):
-        for i in range(len(k_bits_1)):
-            for j in range(len(one_bit_1)):
-                if one_bit_1[j] > k_bits_1[i] and (k_bits_1[i] & one_bit_1[j]) == 0:
-                    k_plus_1_bits_1.append(k_bits_1[i] | one_bit_1[j])
-        k_bits_1 = k_plus_1_bits_1
-        k_plus_1_bits_1 = []
-        # print("With " + str(m+2) + " bits set to 1:\n - edge count = " + str(len(k_bits_1)))
-        # for num in k_bits_1:
-        #     print(format(num, '09b'))
-        # print("END\n")
-    return k_bits_1
+        for i in range(len(k_elt_subsets)):
+            for j in range(len(one_elt_subsets)):
+                #  and (k_bits_1[i] & one_bit_1[j]) == 0
+                # past version had above but it's unnecessary
+                if one_elt_subsets[j] > k_elt_subsets[i]:
+                    k_plus_1_elt_subsets.append(k_elt_subsets[i] | one_elt_subsets[j])
+        k_elt_subsets = k_plus_1_elt_subsets
+        k_plus_1_elt_subsets = []
 
-get_odd_graph_k_vertices(5)
+        # # Debugging below
+        # print("With " + str(m+2) + " bits set to 1:\n - vertex count = " + str(len(k_elt_subsets)))
+        # for num in k_elt_subsets:
+        #     print(format(num, f"0{set_size}b"))
+        # print("END\n")
+    return k_elt_subsets
+
 
 def get_edge_list(vertex_list):
     edge_list = []
@@ -61,22 +68,3 @@ class OddGraph:
 #         bits > (2k-1) are set to 0
         self.edge_list = get_edge_list(self.vertex_set)
 
-
-# vertex_label = get_vertex_number([2, 3, 4]);
-# print("Number for subset [2, 3, 4] is " + str(vertex_label))
-# print("Binary representation: " + format(vertex_label, "07b"))
-
-
-
-# odd_graph = OddGraph(4)
-# subsets_containing_2 = get_all_subsets_containing_x(2, odd_graph.vertex_set)
-# print("All subsets in odd graph 4 containing element 2: " + str(subsets_containing_2))
-# print("Binary representation:")
-# for subset in subsets_containing_2:
-#     print(format(subset, '07b'))
-
-
-
-# example_vis_graph = GV()
-# example_vis_graph.set_edge_list(odd_graph_5.edge_list)
-# example_vis_graph.visualize()
