@@ -1,7 +1,14 @@
+# usage
+# import odd_graph_generator as odd_gen
 
-from graph_visualizor import GraphVisualization as GV
 
+# # for generating an odd graph k, in place of k below, give some positive integer
+# odd_graph = odd_gen.OddGraph(k)
 
+# # accessing vertex list and edge lists
+# print(odd_graph.vertex_list) 
+# print(odd_graph.edge_list)
+# # note that edge list is just an unordered list of all edges
 
 def get_odd_graph_k_vertices(k):
     set_size = 2*k - 1
@@ -57,6 +64,22 @@ def get_all_subsets_containing_x(x, vertex_list):
         if vertex & bit != 0:
             subset_list.append(vertex)
     return subset_list
+
+# get neighbours of a vertex in odd graph k
+def get_vertex_neighbours(k, vertex, exclude_vertex=None, exclude_list=[]):
+    # list of all elements not included in the vertex's subset
+    complete_list = 0
+    for i in range(2*k-1):
+        complete_list = complete_list | (1 << i)
+    exclusion_list = complete_list ^ vertex
+    neighbour_list = []
+    for i in range(2*k-1):
+        if ((1 << i) & exclusion_list) != 0:
+            neighbour = exclusion_list ^ (1 << i)
+            if neighbour != exclude_vertex:
+                neighbour_list.append(neighbour)
+    return neighbour_list
+
 
 class OddGraph:
     def __init__(self, k):

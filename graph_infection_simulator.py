@@ -1,5 +1,24 @@
 
-import odd_graph_generator as og
+
+# # Usage example
+# import graph_infection_simulator as i_sim
+
+# # pass as arguments a vertex list, and an edge list (not a matrix or adjacency list, but just a list of edges, a list of 2-length lists basically)
+# i_graph = i_sim.InfectedGraph(odd_graph['vertex_set'], odd_graph['edge_list'])
+
+# # settting a vertex to be infected by passing a single vertex as an argument
+# i_graph.set_infected_vertex(some_vertex)
+
+# # setting vertices to be infected by passing a list
+# i_graph.set_infected_vertices(subsets_containing_1[:initial_infection_cnt])
+
+# # simulating the infection
+# i_graph.simulate_infection()
+
+# # call this after simulating the infection, to see if whole graph is infected
+# result = i_graph.is_graph_infected()
+
+
 
 class InfectedGraph:
 
